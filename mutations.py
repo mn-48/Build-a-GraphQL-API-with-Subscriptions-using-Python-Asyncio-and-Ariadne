@@ -4,7 +4,7 @@ from store import users, messages
 
 mutation = ObjectType("Mutation")
 
-
+# convert_kwargs_to_snake_casecamelCase to snake_case 
 @mutation.field("createUser")
 @convert_kwargs_to_snake_case
 async def resolve_create_user(obj, info, username):
@@ -24,6 +24,27 @@ async def resolve_create_user(obj, info, username):
             "errors": ["Username is taken"]
         }
 
+    except Exception as error:
+        return {
+            "success": False,
+            "errors": [str(error)]
+        }
+
+
+@mutation.field("createMessage")
+@convert_kwargs_to_snake_case
+async def resolve_create_message(obj, info, content, sender_id, recipient_id):
+    try:
+        message = {
+            "content": content,
+            "sender_id": sender_id,
+            "recipient_id": recipient_id
+        }
+        messages.append(message)
+        return {
+            "success": True,
+            "message": message
+        }
     except Exception as error:
         return {
             "success": False,
