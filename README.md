@@ -1,10 +1,12 @@
+#### run
+```uvicorn app:app --reload```
+
 [help](https://www.twilio.com/blog/graphql-api-subscriptions-python-asyncio-ariadne)
 
 ```
 async def hello_world():
     return "Hello world"
 ```
-
 
 *We can call `asynchronous` functions in 3 ways:*
 
