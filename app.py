@@ -1,17 +1,20 @@
-from mutations import mutation
-from ariadne import QueryType, make_executable_schema, load_schema_from_path
-from ariadne.asgi import GraphQL
+from ariadne import (
+    load_schema_from_path,
+    make_executable_schema, 
+    snake_case_fallback_resolvers
+)
 
+from ariadne.asgi import GraphQL
+from mutations import mutation
+from queries import query
 
 type_defs = load_schema_from_path("schema.graphql")
 
-query = QueryType()
+schema = make_executable_schema(
+    type_defs, 
+    query, 
+    mutation,
+    snake_case_fallback_resolvers
+)
 
-
-@query.field("hello")
-def resolve_hello(*_):
-    return "Hello world!"
-
-
-schema = make_executable_schema(type_defs, query, mutation)
 app = GraphQL(schema, debug=True)
