@@ -1,5 +1,7 @@
 #### run
-```uvicorn app:app --reload```
+```
+uvicorn app:app --reload
+```
 
 [help](https://www.twilio.com/blog/graphql-api-subscriptions-python-asyncio-ariadne)
 
